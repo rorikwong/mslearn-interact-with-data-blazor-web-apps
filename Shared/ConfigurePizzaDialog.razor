@@ -1,13 +1,16 @@
 @inject HttpClient HttpClient
 @code{
     [Parameter] public Pizza Pizza {get; set; }
+    [Parameter] public EventCallback OnCancel {get; set;}
+    [Parameter] public EventCallback OnConfirm {get; set;}
 }
 
-<div class="dialog-container">
-    <div class="dialog">
-        <div class="dialog-title">
-            <h2>@Pizza.Special.Name</h2>
-            @Pizza.Special.Description
+<div class="dialog-buttons">
+    <button class="btn btn-secondary mr-auto" @onclick="OnCancel">Cancel</button>
+        <span class="mr-center">
+            Price: <span class="price">@(Pizza.GetFormattedTotalPrice())</span>
+        </span>
+        <button class="btn btn-success ml-auto" @onclick="OnConfirm">Order ></button>
         </div>
         <form class="dialog-body">
             <div>
@@ -26,5 +29,3 @@
             </span>
             <button class="btn btn-success ml-auto" >Order ></button>
         </div>
-    </div>
-</div>
